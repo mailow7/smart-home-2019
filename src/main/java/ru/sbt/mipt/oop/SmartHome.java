@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome {
-    Collection<Room> rooms;
+
+    private SmartHome smartHome;
+    private Collection<Room> rooms;
+
 
     public SmartHome() {
         rooms = new ArrayList<>();
@@ -14,11 +17,16 @@ public class SmartHome {
         this.rooms = rooms;
     }
 
-    public void addRoom(Room room) {
-        rooms.add(room);
+     Collection<Room> getRooms() {
+        return rooms;
     }
 
-    public Collection<Room> getRooms() {
-        return rooms;
+     void GetHomeEvents() {
+        smartHome = HomeEvents.GetEvents();
+    }
+
+     void CheckHomeEvents() {
+        HomeEvents.CheckEvents(smartHome);
+
     }
 }

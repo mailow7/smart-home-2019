@@ -1,19 +1,27 @@
 package ru.sbt.mipt.oop;
 
-public class Door {
+public class Door{
     private final String id;
-    private boolean isOpen;
+    private DoorState is;
 
-    public Door(boolean isOpen, String id) {
-        this.isOpen = isOpen;
+    enum DoorState {
+        OPEN, CLOSED
+    }
+
+    public Door(String id, DoorState isOpen) {
+        this.is = isOpen;
         this.id = id;
     }
 
-    public String getId() {
+    public void add(String id, DoorState isOpen) {
+        new Door(id, isOpen);
+    }
+
+     String getId() {
         return id;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
+     void setOpen(DoorState state) {
+        is = state;
     }
 }

@@ -1,23 +1,29 @@
 package ru.sbt.mipt.oop;
 
-public class Light {
-    private boolean isOn;
+public class Light
+{
+
+    enum LightState {
+        ON, OFF
+    }
     private final String id;
+    private LightState is;
 
-    public Light(String id, boolean isOn) {
+    public Light(String id, LightState isOn) {
         this.id = id;
-        this.isOn = isOn;
+        this.is = isOn;
     }
 
-    public boolean isOn() {
-        return isOn;
+    public LightState isOn() {
+        return is;
     }
 
-    public String getId() {
+     String getId() {
         return id;
     }
 
-    public void setOn(boolean on) {
-        isOn = on;
+     void setOn(LightState state) {
+        is = state;
     }
+
 }
