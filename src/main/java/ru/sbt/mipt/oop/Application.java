@@ -5,8 +5,9 @@ public class Application {
 
         SmartHome smartHome = new SmartHome();
         //HomeBuilder.Build();
+        smartHome.GetHomeState();
         smartHome.GetHomeEvents();
-        smartHome.CheckHomeEvents();
+        //smartHome.CheckHomeEvents();
 
     }
 }
