@@ -6,49 +6,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static ru.sbt.mipt.oop.Door.DoorState.CLOSED;
-import static ru.sbt.mipt.oop.Door.DoorState.OPEN;
-import static ru.sbt.mipt.oop.Light.LightState.OFF;
-import static ru.sbt.mipt.oop.Light.LightState.ON;
+
 import static ru.sbt.mipt.oop.SensorCommand.sendCommand;
-import static ru.sbt.mipt.oop.HomeEvents.SensorEventType.*;
+import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class HomeEvents {
 
-    enum SensorEventType {
-        LIGHT_ON, LIGHT_OFF, DOOR_OPEN, DOOR_CLOSED
+    public HomeEvents(SensorEventType sensorEventType, String objectId) {
     }
 
-    private final SensorEventType type;
-    private final String objectId;
-
-    @Override
-    public String toString() {
-        return "SensorEvent{" +
-                "type=" + type +
-                ", objectId='" + objectId + '\'' +
-                '}';
-    }
-
-    private HomeEvents(SensorEventType type, String objectId) {
-        this.type = type;
-        this.objectId = objectId;
-    }
-
-    private SensorEventType getType() {
-        return type;
-    }
-
-    private String getObjectId() {
-        return objectId;
-    }
-
-    private static HomeEvents getNextSensorEvent() {
+    private static SensorEvent getNextSensorEvent() {
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events
         if (Math.random() < 0.05) return null; // null means end of event stream
         SensorEventType sensorEventType = SensorEventType.values()[(int) (4 * Math.random())];
         String objectId = "" + ((int) (10 * Math.random()));
-        return new HomeEvents(sensorEventType, objectId);
+        return new SensorEvent(sensorEventType, objectId);
     }
 
      static SmartHome GetEvents() {
@@ -66,7 +38,7 @@ public class HomeEvents {
 
      static void CheckEvents(SmartHome smartHome) {
         // начинаем цикл обработки событий
-        HomeEvents event = getNextSensorEvent();
+        SensorEvent event = getNextSensorEvent();
         while (event != null) {
             System.out.println("Got event: " + event);
             if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
@@ -75,10 +47,10 @@ public class HomeEvents {
                     for (Light light : room.getLights()) {
                         if (light.getId().equals(event.getObjectId())) {
                             if (event.getType() == LIGHT_ON) {
-                                light.setOn(ON);
+                                light.setOn(true);
                                 System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
                             } else {
-                                light.setOn(OFF);
+                                light.setOn(false);
                                 System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
                             }
                         }
@@ -91,17 +63,17 @@ public class HomeEvents {
                     for (Door door : room.getDoors()) {
                         if (door.getId().equals(event.getObjectId())) {
                             if (event.getType() == DOOR_OPEN) {
-                                door.setOpen(OPEN);
+                                door.setOpen(true);
                                 System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
                             } else {
-                                door.setOpen(CLOSED);
+                                door.setOpen(false);
                                 System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
                                 // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
                                 // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
                                 if (room.getName().equals("hall")) {
                                     for (Room homeRoom : smartHome.getRooms()) {
                                         for (Light light : homeRoom.getLights()) {
-                                            light.setOn(OFF);
+                                            light.setOn(true);
                                             SensorCommand command = new SensorCommand(SensorCommand.CommandType.LIGHT_OFF, light.getId());
                                             sendCommand(command);
                                         }

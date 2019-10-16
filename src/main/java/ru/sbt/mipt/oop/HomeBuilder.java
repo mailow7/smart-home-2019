@@ -10,25 +10,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import static ru.sbt.mipt.oop.Door.DoorState.CLOSED;
-import static ru.sbt.mipt.oop.Door.DoorState.OPEN;
-import static ru.sbt.mipt.oop.Light.LightState.OFF;
-import static ru.sbt.mipt.oop.Light.LightState.ON;
 
 public class HomeBuilder {
 
     public static void main(String[] args) throws IOException {
-        Room kitchen = new Room(Arrays.asList(new Light("1", Light.LightState.OFF), new Light("2", Light.LightState.ON)),
-                Arrays.asList(new Door("1", Door.DoorState.CLOSED)),
+        Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
+                Arrays.asList(new Door("1", false)),
                 "kitchen");
-        Room bathroom = new Room(Arrays.asList(new Light("3", Light.LightState.ON)),
-                Arrays.asList(new Door("2",Door.DoorState.CLOSED)),
+        Room bathroom = new Room(Arrays.asList(new Light("3", true)),
+                Arrays.asList(new Door("2",false)),
                 "bathroom");
-        Room bedroom = new Room(Arrays.asList(new Light("4", Light.LightState.OFF), new Light("5", Light.LightState.OFF), new Light("6", Light.LightState.OFF)),
-                Arrays.asList(new Door("3", Door.DoorState.OPEN)),
+        Room bedroom = new Room(Arrays.asList(new Light("4", false), new Light("5", false), new Light("6", false)),
+                Arrays.asList(new Door("3", true)),
                 "bedroom");
-        Room hall = new Room(Arrays.asList(new Light("7", Light.LightState.OFF), new Light("8", Light.LightState.OFF), new Light("9", Light.LightState.OFF)),
-                Arrays.asList(new Door("4",Door.DoorState.CLOSED)),
+        Room hall = new Room(Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false)),
+                Arrays.asList(new Door("4",false)),
                 "hall");
         SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -47,22 +43,22 @@ public class HomeBuilder {
         Room bedroom = new Room("bedroom");
         Room hall = new Room("hall");
 
-        kitchen.AddLight("1", OFF);
-        kitchen.AddLight("2", OFF);
-        kitchen.AddDoor("1", CLOSED);
+        kitchen.AddLight("1", false);
+        kitchen.AddLight("2", false);
+        kitchen.AddDoor("1", false);
 
-        bathroom.AddLight("3", ON);
-        bathroom.AddDoor("2", CLOSED);
+        bathroom.AddLight("3", true);
+        bathroom.AddDoor("2", false);
 
-        bedroom.AddLight("4",OFF);
-        bedroom.AddLight("5",OFF);
-        bedroom.AddLight("6",OFF);
-        bedroom.AddDoor("3",OPEN);
+        bedroom.AddLight("4",false);
+        bedroom.AddLight("5",false);
+        bedroom.AddLight("6",false);
+        bedroom.AddDoor("3",true);
 
-        hall.AddLight("7",OFF);
-        hall.AddLight("8",OFF);
-        hall.AddLight("9",OFF);
-        hall.AddDoor("4",CLOSED);
+        hall.AddLight("7",false);
+        hall.AddLight("8",false);
+        hall.AddLight("9",false);
+        hall.AddDoor("4",false);
 
         SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

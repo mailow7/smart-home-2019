@@ -29,11 +29,11 @@ public class Room {
         return name;
     }
 
-     void AddLight(String id, Light.LightState ls) {
+     void AddLight(String id, boolean ls) {
        this.lights.add(new Light(id ,ls));
     }
 
-     void AddDoor(String id, Door.DoorState isOpen) {
+     void AddDoor(String id, boolean isOpen) {
         this.doors.add(new Door(id, isOpen));
     }
 }

@@ -2,18 +2,16 @@ package ru.sbt.mipt.oop;
 
 public class Door{
     private final String id;
-    private DoorState is;
+    private boolean isOpen;
 
-    enum DoorState {
-        OPEN, CLOSED
-    }
 
-    public Door(String id, DoorState isOpen) {
-        this.is = isOpen;
+
+    public Door(String id, boolean isOpen) {
+        this.isOpen = isOpen;
         this.id = id;
     }
 
-    public void add(String id, DoorState isOpen) {
+    public void add(String id, boolean isOpen) {
         new Door(id, isOpen);
     }
 
@@ -21,7 +19,7 @@ public class Door{
         return id;
     }
 
-     void setOpen(DoorState state) {
-        is = state;
+     void setOpen(boolean state) {
+        isOpen = state;
     }
 }
