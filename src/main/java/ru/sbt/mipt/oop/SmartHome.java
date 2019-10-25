@@ -93,4 +93,12 @@ public class SmartHome {
             }
         }
     }
+
+    public Room getRoom(String roomname) {
+        for (Room room : smartHome.getRooms()) {
+            if(room.getName()==roomname)
+                return room;
+        }
+        return null;
+    }
 }

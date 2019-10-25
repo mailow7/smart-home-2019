@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-public class Light
+public class Light implements Actionable
 {
 
 
@@ -25,4 +25,8 @@ public class Light
         isOn = on;
     }
 
+    @Override
+    public void execute(Action action) {
+
+    }
 }
