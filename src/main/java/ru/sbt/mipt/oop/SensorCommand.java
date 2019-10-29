@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop;
 
 public class SensorCommand {
 
-    enum CommandType {
+    public enum CommandType {
         LIGHT_OFF
     }
 
@@ -24,7 +24,7 @@ public class SensorCommand {
     }
 
 
-     static void sendCommand(SensorCommand command) {
+    static void sendCommand(SensorCommand command) {
         System.out.println("Pretent we're sending command " + command);
     }
 

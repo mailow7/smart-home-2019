@@ -1,8 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.Parts;
 
 import java.util.Collection;
 
-public class Room implements Actionable {
+public class Room {
     private String name;
     private Collection<Light> lights;
     private Collection<Door> doors;
@@ -17,28 +17,24 @@ public class Room implements Actionable {
         this.name = name;
     }
 
-     Collection<Light> getLights() {
+    public Collection<Light> getLights() {
         return lights;
     }
 
-     Collection<Door> getDoors() {
+    public Collection<Door> getDoors() {
         return doors;
     }
 
-     String getName() {
+    public String getName() {
         return name;
     }
 
-     void AddLight(String id, boolean ls) {
-       this.lights.add(new Light(id ,ls));
+    void AddLight(String id, boolean ls) {
+        this.lights.add(new Light(id, ls));
     }
 
-     void AddDoor(String id, boolean isOpen) {
+    void AddDoor(String id, boolean isOpen) {
         this.doors.add(new Door(id, isOpen));
     }
 
-    @Override
-    public void execute(Action action) {
-
-    }
 }

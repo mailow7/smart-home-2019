@@ -1,8 +1,12 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.EventMaker;
 
-public class GetSmarthomeEventRandom implements GetSmarthomeEvent {
-    @Override
-    public SensorEvent GetEvent() {
+import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.SensorEventType;
+
+public class GetSmarthomeEventRandom {
+
+
+    public static SensorEvent GetEvent() {
 
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events
         if (Math.random() < 0.05) return null; // null means end of event stream

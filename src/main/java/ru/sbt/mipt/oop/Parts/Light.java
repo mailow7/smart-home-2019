@@ -1,12 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.Parts;
 
-public class Light implements Actionable
-{
-
-
+public class Light {
     private final String id;
     private boolean isOn;
-
 
     public Light(String id, Boolean isOn) {
         this.id = id;
@@ -17,16 +13,13 @@ public class Light implements Actionable
         return isOn;
     }
 
-     String getId() {
+    public String getId() {
         return id;
     }
 
-     void setOn(boolean on) {
+    public void setOn(boolean on) {
         isOn = on;
     }
 
-    @Override
-    public void execute(Action action) {
 
-    }
 }

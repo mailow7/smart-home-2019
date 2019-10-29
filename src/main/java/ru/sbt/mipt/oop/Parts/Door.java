@@ -1,9 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.Parts;
 
-public class Door{
+public class Door {
     private final String id;
     private boolean isOpen;
-
 
 
     public Door(String id, boolean isOpen) {
@@ -15,11 +14,11 @@ public class Door{
         new Door(id, isOpen);
     }
 
-     String getId() {
+    public String getId() {
         return id;
     }
 
-     void setOpen(boolean state) {
+    public void setOpen(boolean state) {
         isOpen = state;
     }
 }
