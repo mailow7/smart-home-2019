@@ -9,8 +9,14 @@ import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
 public class LightEventProcessor implements EventProcessor {
 
+    private SmartHome smartHome;
+
+    public LightEventProcessor(SmartHome smartHome){
+        this.smartHome = smartHome;
+    }
+
     @Override
-    public void handle(SmartHome smartHome, SensorEvent event) {
+    public void handle(SensorEvent event) {
 
         // событие от источника света
         if (sensorLightEvent(event)) {

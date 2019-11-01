@@ -10,8 +10,14 @@ import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
 public class DoorEventProcessor implements EventProcessor {
 
+    private SmartHome smartHome;
+
+    public DoorEventProcessor(SmartHome smartHome){
+        this.smartHome = smartHome;
+    }
+
     @Override
-    public void handle(SmartHome smartHome, SensorEvent event) {
+    public void handle(SensorEvent event) {
         // событие от двери
         if (sensorDoorEvent(event)) {
             smartHome.execute(obj -> {

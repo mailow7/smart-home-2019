@@ -15,18 +15,20 @@ import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
 public class TestsDoorEventProcessor {
 
+    private HomeState homeState = new getSmarthomefromJSON();
+
     @Test
     public void CheckEventProcessorLightOnWhenDoorOpen() {
 
-        HomeState homeState = new getSmarthomefromJSON();
-        SmartHome smartHome = homeState.GetState();
-        DoorEventProcessor dooreventprocessor = new DoorEventProcessor();
 
-        dooreventprocessor.handle(smartHome, new SensorEvent(DOOR_CLOSED, "1"));
+        SmartHome smartHome = homeState.GetState();
+        DoorEventProcessor dooreventprocessor = new DoorEventProcessor(smartHome);
+
+        dooreventprocessor.handle(new SensorEvent(DOOR_CLOSED, "1"));
 
         assertFalse(isDoorOpeninSmarthomebyID(smartHome, "1"));
 
-        dooreventprocessor.handle(smartHome, new SensorEvent(DOOR_OPEN, "1"));
+        dooreventprocessor.handle(new SensorEvent(DOOR_OPEN, "1"));
 
         assertTrue(isDoorOpeninSmarthomebyID(smartHome, "1"));
     }
