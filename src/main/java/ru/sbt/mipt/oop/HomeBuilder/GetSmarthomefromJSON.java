@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class getSmarthomefromJSON implements HomeState {
+public class GetSmarthomefromJSON implements HomeStateReader {
 
     @Override
-    public SmartHome GetState() {
+    public SmartHome getState() {
 
         // считываем состояние дома из файла
         Gson gson = new Gson();

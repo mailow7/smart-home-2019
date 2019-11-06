@@ -2,8 +2,8 @@ package ru.sbt.mipt.oop.JUnitTests;
 
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.EventProcessors.DoorEventProcessor;
-import ru.sbt.mipt.oop.HomeBuilder.HomeState;
-import ru.sbt.mipt.oop.HomeBuilder.getSmarthomefromJSON;
+import ru.sbt.mipt.oop.HomeBuilder.HomeStateReader;
+import ru.sbt.mipt.oop.HomeBuilder.GetSmarthomefromJSON;
 import ru.sbt.mipt.oop.Parts.Door;
 import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
@@ -18,8 +18,8 @@ public class TestsDoorEventProcessor {
     @Test
     public void CheckEventProcessorLightOnWhenDoorOpen() {
 
-        HomeState homeState = new getSmarthomefromJSON();
-        SmartHome smartHome = homeState.GetState();
+        HomeStateReader homeStateReader = new GetSmarthomefromJSON();
+        SmartHome smartHome = homeStateReader.getState();
         DoorEventProcessor dooreventprocessor = new DoorEventProcessor();
 
         dooreventprocessor.handle(smartHome, new SensorEvent(DOOR_CLOSED, "1"));

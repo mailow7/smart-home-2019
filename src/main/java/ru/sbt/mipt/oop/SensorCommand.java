@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop;
 public class SensorCommand {
 
     public enum CommandType {
-        LIGHT_OFF
+        LIGHT_OFF,LIGHT_ON
     }
 
 

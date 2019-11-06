@@ -4,7 +4,6 @@ import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 public class Room implements Actionable {
     private String name;
@@ -15,17 +14,10 @@ public class Room implements Actionable {
     public void execute(Action action) {
         action.executeObject(this);
 
-        Iterator<Door> doorIterator = this.doors.iterator();
-        while (doorIterator.hasNext()) {
-            Door door = doorIterator.next();
-            door.execute(action);
-        }
+        for (Door d : doors) d.execute(action);
 
-        Iterator<Light> lightIterator = this.lights.iterator();
-        while (lightIterator.hasNext()) {
-            Light light = lightIterator.next();
-            light.execute(action);
-        }
+        for (Light l : lights) l.execute(action);
+
     }
 
     public Room(Collection<Light> lights, Collection<Door> doors, String name) {
@@ -49,14 +41,5 @@ public class Room implements Actionable {
     public String getName() {
         return name;
     }
-
-    public void AddLight(String id, boolean ls) {
-        this.lights.add(new Light(id, ls));
-    }
-
-    public void AddDoor(String id, boolean isOpen) {
-        this.doors.add(new Door(id, isOpen));
-    }
-
 
 }
