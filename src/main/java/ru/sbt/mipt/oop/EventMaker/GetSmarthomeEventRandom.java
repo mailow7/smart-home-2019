@@ -7,7 +7,7 @@ import ru.sbt.mipt.oop.SmartHome;
 public class GetSmarthomeEventRandom implements GetSmarthomeEvent{
 
 
-    public SensorEvent getEvent() {
+    public static SensorEvent getEvent() {
 
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events
         if (Math.random() < 0.05) return null; // null means end of event stream

@@ -2,9 +2,11 @@ package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.EventMaker.GetSmarthomeEventRandom;
 import ru.sbt.mipt.oop.EventProcessors.EventProcessor;
-import ru.sbt.mipt.oop.EventProcessors.EventProcessorChecker;
+import ru.sbt.mipt.oop.EventProcessors.EventProcessorCreator;
 import ru.sbt.mipt.oop.HomeBuilder.GetSmarthomefromJSON;
 import ru.sbt.mipt.oop.HomeBuilder.HomeStateBuilder;
+
+import java.util.Collection;
 
 public class Application {
 
@@ -16,14 +18,16 @@ public class Application {
     }
 
     private static void getHomeEvents(SmartHome smartHome) {
-        GetSmarthomeEventRandom eventrandom = new GetSmarthomeEventRandom();
-        SensorEvent event = eventrandom.getEvent();
+
+        SensorEvent event = GetSmarthomeEventRandom.getEvent();
+        Collection<EventProcessor> eventProcessors = EventProcessorCreator.getNewEventProcessor();
 
         while (event != null) {
             System.out.println("Got event: " + event);
-            EventProcessor eventProcessor = EventProcessorChecker.getNewEventChecker(smartHome, event);
-            eventProcessor.handle(event);
-            event = eventrandom.getEvent();
+            for (EventProcessor processor : eventProcessors)
+                processor.handle(smartHome, event);
+
+            event = GetSmarthomeEventRandom.getEvent();
         }
     }
 }
