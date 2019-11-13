@@ -4,9 +4,6 @@ import ru.sbt.mipt.oop.Alarm.Alarm;
 import ru.sbt.mipt.oop.Alarm.AlarmDeactivated;
 import ru.sbt.mipt.oop.EventProcessors.EventProcessor;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
-
 public class DecoratorSMS implements EventProcessor {
 
     private SmartHome smartHome;
@@ -20,24 +17,15 @@ public class DecoratorSMS implements EventProcessor {
     @Override
     public void handle(SensorEvent event) {
 
-        Alarm alarm = new Alarm();
+        Alarm alarm = smartHome.getAlarm();
 
-        if(!isSensorEvent(event)) {
+        if (alarm.getStatus() instanceof AlarmDeactivated || event instanceof SensorEvent) {
             return;
-        }
-
-        if (alarm.getStatus() instanceof AlarmDeactivated){
-             return;
-        }
-        else {
-             System.out.println("Sending sms");
+        } else {
+            System.out.println("Sending sms");
             return;
         }
 
     }
 
-    boolean isSensorEvent(SensorEvent event) {
-        return (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED ||
-                event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF);
-    }
 }

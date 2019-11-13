@@ -13,7 +13,7 @@ public class SmartHome implements Actionable {
 
     public SmartHome() {
         rooms = new ArrayList<>();
-        alarm = new Alarm();
+        alarm = new Alarm("123");
     }
 
     @Override

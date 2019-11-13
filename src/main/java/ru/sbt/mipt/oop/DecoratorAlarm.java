@@ -26,21 +26,17 @@ public class DecoratorAlarm implements EventProcessor {
             return;
         } else if (alarm.getStatus() instanceof AlarmDeactivated) {
 
+
             eventProcessor.handle(event);
         } else {
 
             eventProcessor.handle(event);
 
-            if (isSensorEvent(event)) {
-
+            if (event instanceof SensorEvent) {
                 alarm.Alerting();
             }
         }
 
     }
 
-    boolean isSensorEvent(SensorEvent event) {
-        return (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED ||
-                event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF);
-    }
 }

@@ -4,8 +4,9 @@ public class Alarm {
     AlarmStatus status;
     private String pin;
 
-    public Alarm() {
+    public Alarm(String pinCode) {
         this.status = new AlarmDeactivated(this);
+        this.pin = pinCode;
     }
 
     public void setStatus(AlarmStatus newStatus) {
