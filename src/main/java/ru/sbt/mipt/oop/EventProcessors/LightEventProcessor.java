@@ -1,25 +1,24 @@
 package ru.sbt.mipt.oop.EventProcessors;
 
 import ru.sbt.mipt.oop.Parts.Light;
-import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.Sensorevents.LightEvent;
+import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
-
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
 public class LightEventProcessor implements EventProcessor {
 
     private SmartHome smartHome;
 
-    public LightEventProcessor(SmartHome smartHome){
+    public LightEventProcessor(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
     @Override
     public void handle(SensorEvent event) {
 
-        // событие от источника света
-        if (sensorLightEvent(event)) {
+        if (event instanceof LightEvent) {
+
+
             smartHome.execute(obj -> {
                 if (obj instanceof Light) {
                     lightHandle((Light) obj, event);
@@ -28,25 +27,18 @@ public class LightEventProcessor implements EventProcessor {
         }
     }
 
-    private void lightHandle(Light obj, SensorEvent event) {
-        if (obj.getId().equals(event.getObjectId())) {
-            if (event.getType() == LIGHT_ON) {
-                setLightOn(obj, true, "turned on.");
-            } else {
-                setLightOn(obj, false, "turned off.");
-            }
-        }
-    }
+    private void lightHandle(Light light, SensorEvent event) {
 
-    private boolean sensorLightEvent(SensorEvent event) {
-        if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
-            return true;
+        LightEvent lightEvent = (LightEvent) event;
+        if (light.getId().equals(lightEvent.getObjectId())) {
+            changeLightState(light, true, "turned on.");
         } else {
-            return false;
+            changeLightState(light, false, "turned off.");
         }
+
     }
 
-    private void setLightOn(Light light, boolean condition, String cond) {
+    private void changeLightState(Light light, boolean condition, String cond) {
         light.setOn(condition);
         System.out.println("Light " + light.getId() + " was " + cond);
     }

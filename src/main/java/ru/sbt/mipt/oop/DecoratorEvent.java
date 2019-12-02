@@ -5,30 +5,30 @@ import ru.sbt.mipt.oop.EventProcessors.EventProcessor;
 import ru.sbt.mipt.oop.Messanger.MessageSender;
 import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 
-public class EventProcessorDecorator implements EventProcessor{
-
-    private final HomeAlarm homeAlarm;
+public class DecoratorEvent implements EventProcessor {
     private final EventProcessor eventProcessor;
     private final MessageSender messageSender;
+    private final HomeAlarm homeAlarm;
 
-    public EventProcessorDecorator(HomeAlarm homeAlarm, EventProcessor eventProcessor, MessageSender messageSender) {
-        this.homeAlarm = homeAlarm;
+    public DecoratorEvent(HomeAlarm homeAlarm, EventProcessor eventProcessor, MessageSender messageSender) {
         this.eventProcessor = eventProcessor;
         this.messageSender = messageSender;
-    }
+        this.homeAlarm = homeAlarm;
 
+    }
 
     @Override
     public void handle(SensorEvent event) {
         AlarmStatus status = homeAlarm.getStatus();
-        if(status instanceof AlarmDeactivated){
+
+        if (status instanceof AlarmDeactivated) {
             eventProcessor.handle(event);
         }
-        if(status instanceof AlarmActivated){
+        if (status instanceof AlarmActivated) {
             homeAlarm.alarmAlerting();
         }
-        if(status instanceof AlarmActivated && status instanceof AlarmAlerting){
-            messageSender.send("Alarm!!!");
+        if (status instanceof AlarmActivated || status instanceof AlarmAlerting) {
+            messageSender.send("Sending sms");
         }
 
     }

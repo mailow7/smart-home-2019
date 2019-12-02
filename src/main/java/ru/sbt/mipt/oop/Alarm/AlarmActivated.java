@@ -1,38 +1,32 @@
 package ru.sbt.mipt.oop.Alarm;
 
-public class AlarmActivated implements AlarmStatus {
+public class AlarmActivated extends HomeAlarmStatus {
 
-    private Alarm alarm;
+    private final String pin;
 
-    public AlarmActivated(Alarm alarm) {
-        this.alarm = alarm;
+
+    public AlarmActivated(HomeAlarm homeAlarm,String pin) {
+        this.homeAlarm = homeAlarm;
+        this.pin = pin;
     }
 
     @Override
     public void alarmActivated(String alarmPin) {
-        System.out.println("Alarm active!");
+
     }
 
     @Override
-    public void alarmDeactivated(String alarmPin) {
-        if (alarm.validateCode(alarmPin)) {
-
-            AlarmStatus newStatus = new AlarmDeactivated(alarm);
-            alarm.setStatus(newStatus);
-            System.out.println("Alarm deactivated");
-
+    public void alarmDeactivated(String pin) {
+        if (pin.equals(this.pin)) {
+            homeAlarm.setStatus(new AlarmDeactivated(homeAlarm, pin));
         } else {
-
-            System.out.println("Wrong password entered!");
-            AlarmStatus newStatus = new AlarmAlert(alarm);
-            alarm.setStatus(newStatus);
-            alarm.Alerting();
+            homeAlarm.setStatus(new AlarmAlerting(homeAlarm, this.pin));
         }
     }
 
     @Override
     public void alarmAlerting() {
-
+        homeAlarm.setStatus(new AlarmAlerting(homeAlarm, this.pin));
     }
 
 }

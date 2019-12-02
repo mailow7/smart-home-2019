@@ -1,35 +1,58 @@
 package ru.sbt.mipt.oop.EventProcessors;
 
+import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Parts.Door;
-import ru.sbt.mipt.oop.SensorCommand;
-import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.Sensorevents.DoorEvent;
+import ru.sbt.mipt.oop.Sensorevents.DoorEventType;
+import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
+import static ru.sbt.mipt.oop.Sensorevents.DoorEventType.DOOR_OPEN;
+
 
 public class DoorEventProcessor implements EventProcessor {
 
     private SmartHome smartHome;
 
-    public DoorEventProcessor(SmartHome smartHome){
+    public DoorEventProcessor(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
+
+
+
+    private Action parseEvent(Object event) {
+        if (event instanceof DoorEvent) {
+            DoorEvent doorSensorEvent = (DoorEvent) event;
+
+            return obj -> {
+                if (!(obj instanceof Door)) {
+                    return;
+                }
+                Door door = (Door) obj;
+                if (door.getId().equals(doorSensorEvent.getObjectId())) {
+                    door.setOpen(doorSensorEvent.getType()==DOOR_OPEN);
+                }
+
+            };
+        }else{
+            return  null;
+        }
+    }
+
 
     @Override
     public void handle(SensorEvent event) {
         // событие от двери
-        if (sensorDoorEvent(event)) {
-            smartHome.execute(obj -> {
-                if (obj instanceof Door) {
 
-                    doorHandle((Door) obj, event);
-                }
-            });
-        }
+        Action action = parseEvent(event);
+        smartHome.execute(action);
+
     }
 
-    private void doorHandle(Door obj, SensorEvent event) {
+
+
+
+    /*private void doorHandle(Door obj, SensorEvent event) {
         if (obj.getId().equals(event.getObjectId())) {
             if (event.getType() == DOOR_OPEN) {
                 setDoor(obj, true, "opened.");
@@ -45,11 +68,8 @@ public class DoorEventProcessor implements EventProcessor {
         } else {
             return false;
         }
-    }
+    }*/
 
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretent we're sending command " + command);
-    }
 
     private void setDoor(Door door, boolean condition, String openess) {
         door.setOpen(condition);
