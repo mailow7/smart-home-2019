@@ -1,9 +1,7 @@
 package ru.sbt.mipt.oop.EventProcessors;
 
-import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Parts.Door;
 import ru.sbt.mipt.oop.Sensorevents.DoorEvent;
-import ru.sbt.mipt.oop.Sensorevents.DoorEventType;
 import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 
@@ -12,67 +10,39 @@ import static ru.sbt.mipt.oop.Sensorevents.DoorEventType.DOOR_OPEN;
 
 public class DoorEventProcessor implements EventProcessor {
 
-    private SmartHome smartHome;
+    @Override
+    public void handle(SmartHome smartHome, SensorEvent event) {
 
-    public DoorEventProcessor(SmartHome smartHome) {
-        this.smartHome = smartHome;
-    }
-
-
-
-    private Action parseEvent(Object event) {
         if (event instanceof DoorEvent) {
-            DoorEvent doorSensorEvent = (DoorEvent) event;
-
-            return obj -> {
-                if (!(obj instanceof Door)) {
-                    return;
+            smartHome.execute(obj -> {
+                if (obj instanceof Door) {
+                    doorHandle((Door) obj, event);
                 }
-                Door door = (Door) obj;
-                if (door.getId().equals(doorSensorEvent.getObjectId())) {
-                    door.setOpen(doorSensorEvent.getType()==DOOR_OPEN);
-                }
+            });
 
-            };
-        }else{
-            return  null;
         }
     }
 
+    private void doorHandle(Door door, SensorEvent event) {
 
-    @Override
-    public void handle(SensorEvent event) {
-        // событие от двери
-
-        Action action = parseEvent(event);
-        smartHome.execute(action);
-
-    }
-
-
-
-
-    /*private void doorHandle(Door obj, SensorEvent event) {
-        if (obj.getId().equals(event.getObjectId())) {
-            if (event.getType() == DOOR_OPEN) {
-                setDoor(obj, true, "opened.");
+        DoorEvent doorEvent = (DoorEvent) event;
+        if (door.getId().equals(doorEvent.getObjectId())) {
+            if (((DoorEvent) event).getType() == DOOR_OPEN) {
+                changeDoorState(door, true, "opened.");
             } else {
-                setDoor(obj, false, "closed.");
+                changeDoorState(door, false, "closed.");
             }
         }
+
     }
 
-    private boolean sensorDoorEvent(SensorEvent event) {
-        if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
-
-
-    private void setDoor(Door door, boolean condition, String openess) {
+    private void changeDoorState(Door door, boolean condition, String cond) {
         door.setOpen(condition);
-        System.out.println("Door " + door.getId() + " was " + openess);
+        System.out.println("Door " + door.getId() + " was " + cond);
     }
 }
+
+
+
+
+

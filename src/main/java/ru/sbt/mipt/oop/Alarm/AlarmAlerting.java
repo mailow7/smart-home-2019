@@ -1,7 +1,11 @@
 package ru.sbt.mipt.oop.Alarm;
 
-public class AlarmAlerting extends HomeAlarmStatus {
+import ru.sbt.mipt.oop.Messanger.MessageSender;
+import ru.sbt.mipt.oop.Messanger.MessageSenderConsole;
+
+public class AlarmAlerting implements AlarmStatus {
     private final String pin;
+    private final HomeAlarm homeAlarm;
 
     public AlarmAlerting(HomeAlarm homeAlarm, String pin) {
         this.homeAlarm = homeAlarm;
@@ -23,6 +27,5 @@ public class AlarmAlerting extends HomeAlarmStatus {
 
     @Override
     public void alarmAlerting() {
-
     }
 }

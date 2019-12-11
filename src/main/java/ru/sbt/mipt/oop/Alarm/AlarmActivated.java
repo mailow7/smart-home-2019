@@ -1,18 +1,16 @@
 package ru.sbt.mipt.oop.Alarm;
 
-public class AlarmActivated extends HomeAlarmStatus {
-
+public class AlarmActivated implements AlarmStatus {
     private final String pin;
+    private final HomeAlarm homeAlarm;
 
-
-    public AlarmActivated(HomeAlarm homeAlarm,String pin) {
-        this.homeAlarm = homeAlarm;
+    public AlarmActivated(String pin, HomeAlarm homeAlarm) {
         this.pin = pin;
+        this.homeAlarm = homeAlarm;
     }
 
     @Override
     public void alarmActivated(String alarmPin) {
-
     }
 
     @Override

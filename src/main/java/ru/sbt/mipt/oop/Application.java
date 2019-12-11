@@ -11,38 +11,17 @@ import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 import java.util.Arrays;
 import java.util.List;
 
+import static ru.sbt.mipt.oop.EventProcessors.GetHomeProcessor.getHomeProcessor;
+import static ru.sbt.mipt.oop.EventProcessors.HomeEventHandler.processHomeEvent;
+
 public class Application {
 
     public static void main(String[] args) {
 
         HomeStateBuilder homeStateBuilder = new GetSmarthomefromJSON();
         SmartHome smartHome = homeStateBuilder.getState();
-        MessageSender messageSender = new MessageSenderConsole();
-
-        List<EventProcessor> processors = Arrays.asList(
-
-                new DoorEventProcessor(smartHome),
-                new LightEventProcessor(smartHome),
-                new AlarmEventProcessor(smartHome),
-                new HallDoorProcessor(smartHome)
-
-        );
-
-        EventProcessor homeProcessor = new CheckAlarm(smartHome.getHomeAlarm(),
-                new HomeProcessor(processors), messageSender);
-
-
-
-        getHomeEvents(smartHome, homeProcessor);
+        EventProcessor homeProcessor = getHomeProcessor();
+        processHomeEvent(smartHome, homeProcessor);
     }
 
-    private static void getHomeEvents(SmartHome smartHome, EventProcessor processor) {
-        SensorEvent event = GetSmarthomeEventRandom.getEvent();
-
-        while (event != null) {
-            System.out.println("Got event: " + event);
-            processor.handle(event);
-            event = GetSmarthomeEventRandom.getEvent();
-        }
-    }
 }

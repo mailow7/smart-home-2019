@@ -2,17 +2,13 @@ package ru.sbt.mipt.oop.JUnitTests;
 
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.EventProcessors.DoorEventProcessor;
-import ru.sbt.mipt.oop.HomeBuilder.HomeStateBuilder;
 import ru.sbt.mipt.oop.HomeBuilder.GetSmarthomefromJSON;
+import ru.sbt.mipt.oop.HomeBuilder.HomeStateBuilder;
 import ru.sbt.mipt.oop.Parts.Door;
-import ru.sbt.mipt.oop.Sensorevents.DoorEvent;
-import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ru.sbt.mipt.oop.Sensorevents.DoorEventType.DOOR_CLOSED;
-import static ru.sbt.mipt.oop.Sensorevents.DoorEventType.DOOR_OPEN;
 
 public class TestsDoorEventProcessor {
 
@@ -23,7 +19,7 @@ public class TestsDoorEventProcessor {
 
 
         SmartHome smartHome = homeStateBuilder.getState();
-        DoorEventProcessor dooreventprocessor = new DoorEventProcessor(smartHome);
+        DoorEventProcessor dooreventprocessor = new DoorEventProcessor();
 
 
         assertFalse(isDoorOpeninSmarthomebyID(smartHome, "1"));

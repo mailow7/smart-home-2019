@@ -14,7 +14,7 @@ public class GetSmarthomeEventRandom{
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events
         if (Math.random() < 0.05) return null; // null means end of event stream
         String objectId = "" + ((int) (10 * Math.random()));
-        int itype = (int) (4 * Math.random());
+        int itype = (int) (3 * Math.random()+1);
         boolean bool = (Math.random() < 0.5);
         switch (itype) {
             case 1:
@@ -22,7 +22,7 @@ public class GetSmarthomeEventRandom{
             case 2:
                 return new LightEvent(objectId, bool?LIGHT_ON : LIGHT_OFF);
             case 3:
-                return new AlarmEvent("pin",bool?ALARM_ACTIVATE : ALARM_DEACTIVATE);
+                return new AlarmEvent("222",bool?ALARM_ACTIVATE : ALARM_DEACTIVATE);
 
         }
 

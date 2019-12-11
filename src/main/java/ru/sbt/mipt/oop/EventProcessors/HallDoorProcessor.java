@@ -8,14 +8,9 @@ import ru.sbt.mipt.oop.SmartHome;
 
 public class HallDoorProcessor implements EventProcessor {
 
-    private SmartHome smartHome;
-
-    public HallDoorProcessor(SmartHome smartHome) {
-        this.smartHome = smartHome;
-    }
 
     @Override
-    public void handle(SensorEvent event) {
+    public void handle(SmartHome smartHome, SensorEvent event) {
 
         if (isSensorDoorClosedEvent(event))
             smartHome.execute(obj -> {

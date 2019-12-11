@@ -9,7 +9,7 @@ import java.util.Collection;
 public class SmartHome implements Actionable {
 
     Collection<Room> rooms;
-    private HomeAlarm homeAlarm;
+    protected HomeAlarm homeAlarm;
 
     public SmartHome() {
         rooms = new ArrayList<>();
@@ -18,11 +18,12 @@ public class SmartHome implements Actionable {
 
     @Override
     public void execute(Action action) {
+
         action.executeObject(this);
 
-            for(Room room: rooms){
-                room.execute(action);
-            }
+        for (Room room : rooms) {
+            room.execute(action);
+        }
     }
 
     public SmartHome(Collection<Room> rooms) {
@@ -37,7 +38,7 @@ public class SmartHome implements Actionable {
         return rooms;
     }
 
-    public HomeAlarm getHomeAlarm(){
+    public HomeAlarm getHomeAlarm() {
         return homeAlarm;
     }
 

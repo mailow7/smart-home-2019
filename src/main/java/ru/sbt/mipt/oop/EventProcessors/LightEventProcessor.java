@@ -5,19 +5,15 @@ import ru.sbt.mipt.oop.Sensorevents.LightEvent;
 import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 
+import static ru.sbt.mipt.oop.Sensorevents.LightEventType.LIGHT_ON;
+
 public class LightEventProcessor implements EventProcessor {
 
-    private SmartHome smartHome;
-
-    public LightEventProcessor(SmartHome smartHome) {
-        this.smartHome = smartHome;
-    }
 
     @Override
-    public void handle(SensorEvent event) {
+    public void handle(SmartHome smartHome, SensorEvent event) {
 
         if (event instanceof LightEvent) {
-
 
             smartHome.execute(obj -> {
                 if (obj instanceof Light) {
@@ -31,9 +27,11 @@ public class LightEventProcessor implements EventProcessor {
 
         LightEvent lightEvent = (LightEvent) event;
         if (light.getId().equals(lightEvent.getObjectId())) {
-            changeLightState(light, true, "turned on.");
-        } else {
-            changeLightState(light, false, "turned off.");
+            if (((LightEvent) event).getType() == LIGHT_ON) {
+                changeLightState(light, true, "turned on.");
+            } else {
+                changeLightState(light, false, "turned off.");
+            }
         }
 
     }
