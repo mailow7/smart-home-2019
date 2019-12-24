@@ -1,7 +1,6 @@
 package ru.sbt.mipt.oop.Alarm;
 
 import ru.sbt.mipt.oop.Messanger.MessageSender;
-import ru.sbt.mipt.oop.Messanger.MessageSenderConsole;
 
 public class AlarmAlerting implements AlarmStatus {
     private final String pin;
@@ -19,13 +18,13 @@ public class AlarmAlerting implements AlarmStatus {
 
     @Override
     public void alarmDeactivated(String alarmPin) {
-        if(pin.equals(this.pin)){
+        if (pin.equals(alarmPin)) {
             homeAlarm.setStatus(new AlarmDeactivated(homeAlarm, pin));
         }
 
     }
 
     @Override
-    public void alarmAlerting() {
+    public void alarmAlerting(MessageSender messageSender) {
     }
 }

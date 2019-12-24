@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.Sensorevents;
 
-public class AlarmEvent implements SensorEvent{
+public class AlarmEvent implements SensorEvent {
     private final String pin;
     private final AlarmEventType type;
 

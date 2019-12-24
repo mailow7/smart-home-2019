@@ -3,9 +3,8 @@ package ru.sbt.mipt.oop.Alarm;
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.Messanger.MessageSender;
-import ru.sbt.mipt.oop.Messanger.MessageSenderConsole;
 
-public class HomeAlarm implements Actionable, AlarmStatus {
+public class HomeAlarm implements Actionable {
     AlarmStatus status;
     private String pin;
 
@@ -26,6 +25,10 @@ public class HomeAlarm implements Actionable, AlarmStatus {
         status.alarmDeactivated(EnteredPin);
     }
 
+    public void Alerting(MessageSender messageSender) {
+        status.alarmAlerting(messageSender);
+    }
+
 
     public boolean validatePin(String EnteredPin) {
         return this.pin.equals(EnteredPin);
@@ -44,22 +47,5 @@ public class HomeAlarm implements Actionable, AlarmStatus {
         action.executeObject(this);
     }
 
-    @Override
-    public void alarmActivated(String alarmPin) {
-        status.alarmActivated(alarmPin);
-    }
 
-    @Override
-    public void alarmDeactivated(String alarmPin) {
-        status.alarmDeactivated(alarmPin);
-
-    }
-
-    @Override
-    public void alarmAlerting() {
-        MessageSender messageSender = new MessageSenderConsole();
-        messageSender.send("Sending sms");
-
-        status.alarmAlerting();
-    }
 }

@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop.Alarm;
 
+import ru.sbt.mipt.oop.Messanger.MessageSender;
+
 public class AlarmActivated implements AlarmStatus {
     private final String pin;
     private final HomeAlarm homeAlarm;
@@ -23,7 +25,7 @@ public class AlarmActivated implements AlarmStatus {
     }
 
     @Override
-    public void alarmAlerting() {
+    public void alarmAlerting(MessageSender messageSender) {
         homeAlarm.setStatus(new AlarmAlerting(homeAlarm, this.pin));
     }
 

@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.Alarm;
 
-import ru.sbt.mipt.oop.EventProcessors.AlarmEventProcessor;
+import ru.sbt.mipt.oop.Messanger.MessageSender;
 
 public class AlarmDeactivated implements AlarmStatus {
 
@@ -26,7 +26,7 @@ public class AlarmDeactivated implements AlarmStatus {
     }
 
     @Override
-    public void alarmAlerting() {
+    public void alarmAlerting(MessageSender messageSender) {
         homeAlarm.setStatus(new AlarmAlerting(homeAlarm,pin));
 
     }

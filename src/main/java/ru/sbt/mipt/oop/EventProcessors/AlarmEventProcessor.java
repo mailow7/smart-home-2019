@@ -15,7 +15,7 @@ public class AlarmEventProcessor implements EventProcessor {
     public void handle(SmartHome smartHome, SensorEvent event) {
         if (event instanceof AlarmEvent) {
             AlarmEvent alarmEvent = (AlarmEvent) event;
-            HomeAlarm homeAlarm = smartHome.getHomeAlarm();
+                HomeAlarm homeAlarm = smartHome.getHomeAlarm();
             AlarmEventType type = alarmEvent.getType();
             String pin = alarmEvent.getPin();
             if (type == ALARM_ACTIVATE) {
