@@ -1,36 +1,33 @@
 package ru.sbt.mipt.oop.EventProcessors;
 
-import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.Alarm.HomeAlarm;
+import ru.sbt.mipt.oop.Sensorevents.AlarmEvent;
+import ru.sbt.mipt.oop.Sensorevents.AlarmEventType;
+import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 
-import static ru.sbt.mipt.oop.SensorEventType.ALARM_ACTIVATE;
-import static ru.sbt.mipt.oop.SensorEventType.ALARM_DEACTIVATE;
+import static ru.sbt.mipt.oop.Sensorevents.AlarmEventType.ALARM_ACTIVATE;
+import static ru.sbt.mipt.oop.Sensorevents.AlarmEventType.ALARM_DEACTIVATE;
 
 public class AlarmEventProcessor implements EventProcessor {
 
-    private final SmartHome smartHome;
-
-    public AlarmEventProcessor(SmartHome smartHome) {
-        this.smartHome = smartHome;
-    }
-
     @Override
-    public void handle(SensorEvent event) {
-
-        if (isAlarmEvent(event)){
-            if (event.getType() == ALARM_ACTIVATE){
-                String currentCode = ALARM_ACTIVATE.getCode();
-                smartHome.getAlarm().activateAlarm(currentCode);
-            } else {
-                String currentCode = ALARM_DEACTIVATE.getCode();
-                smartHome.getAlarm().deactivateAlarm(currentCode);
+    public void handle(SmartHome smartHome, SensorEvent event) {
+        if (event instanceof AlarmEvent) {
+            AlarmEvent alarmEvent = (AlarmEvent) event;
+                HomeAlarm homeAlarm = smartHome.getHomeAlarm();
+            AlarmEventType type = alarmEvent.getType();
+            String pin = alarmEvent.getPin();
+            if (type == ALARM_ACTIVATE) {
+                homeAlarm.Activate(pin);
+            } else if (type == ALARM_DEACTIVATE) {
+                homeAlarm.Deactivate(pin);
             }
+
         }
 
 
     }
 
-    public boolean isAlarmEvent(SensorEvent event){
-        return (event.getType() == ALARM_ACTIVATE || event.getType() == ALARM_DEACTIVATE);
-    }
+
 }

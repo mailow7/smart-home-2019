@@ -2,33 +2,29 @@ package ru.sbt.mipt.oop.Alarm;
 
 import ru.sbt.mipt.oop.Messanger.MessageSender;
 
-public class AlarmDeactivated implements AlarmStatus {
-
+public class AlarmAlerting implements AlarmStatus {
     private final String pin;
     private final HomeAlarm homeAlarm;
 
-    public AlarmDeactivated(HomeAlarm homeAlarm, String pin) {
-        this.pin = pin;
+    public AlarmAlerting(HomeAlarm homeAlarm, String pin) {
         this.homeAlarm = homeAlarm;
+        this.pin = pin;
     }
 
     @Override
-    public void alarmActivated(String pin) {
-
-        homeAlarm.setStatus(new AlarmActivated(
-                pin, homeAlarm));
+    public void alarmActivated(String alarmPin) {
 
     }
 
     @Override
     public void alarmDeactivated(String alarmPin) {
+        if (pin.equals(alarmPin)) {
+            homeAlarm.setStatus(new AlarmDeactivated(homeAlarm, pin));
+        }
 
     }
 
     @Override
     public void alarmAlerting(MessageSender messageSender) {
-        homeAlarm.setStatus(new AlarmAlerting(homeAlarm,pin));
-
     }
-
 }

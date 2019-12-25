@@ -4,4 +4,8 @@ public interface Command {
 
     void executeCommand();
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> remotes/remote/hometask-3

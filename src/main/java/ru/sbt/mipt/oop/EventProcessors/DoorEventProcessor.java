@@ -1,58 +1,48 @@
 package ru.sbt.mipt.oop.EventProcessors;
 
 import ru.sbt.mipt.oop.Parts.Door;
-import ru.sbt.mipt.oop.SensorCommand;
-import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.Sensorevents.DoorEvent;
+import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
+import static ru.sbt.mipt.oop.Sensorevents.DoorEventType.DOOR_OPEN;
+
 
 public class DoorEventProcessor implements EventProcessor {
 
-    private SmartHome smartHome;
-
-    public DoorEventProcessor(SmartHome smartHome){
-        this.smartHome = smartHome;
-    }
-
     @Override
-    public void handle(SensorEvent event) {
-        // событие от двери
-        if (sensorDoorEvent(event)) {
+    public void handle(SmartHome smartHome, SensorEvent event) {
+
+        if (event instanceof DoorEvent) {
             smartHome.execute(obj -> {
                 if (obj instanceof Door) {
-
                     doorHandle((Door) obj, event);
                 }
             });
+
         }
     }
 
-    private void doorHandle(Door obj, SensorEvent event) {
-        if (obj.getId().equals(event.getObjectId())) {
-            if (event.getType() == DOOR_OPEN) {
-                setDoor(obj, true, "opened.");
+    private void doorHandle(Door door, SensorEvent event) {
+
+        DoorEvent doorEvent = (DoorEvent) event;
+        if (door.getId().equals(doorEvent.getObjectId())) {
+            if (((DoorEvent) event).getType() == DOOR_OPEN) {
+                changeDoorState(door, true, "opened.");
             } else {
-                setDoor(obj, false, "closed.");
+                changeDoorState(door, false, "closed.");
             }
         }
+
     }
 
-    private boolean sensorDoorEvent(SensorEvent event) {
-        if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretent we're sending command " + command);
-    }
-
-    private void setDoor(Door door, boolean condition, String openess) {
+    private void changeDoorState(Door door, boolean condition, String cond) {
         door.setOpen(condition);
-        System.out.println("Door " + door.getId() + " was " + openess);
+        System.out.println("Door " + door.getId() + " was " + cond);
     }
 }
+
+
+
+
+

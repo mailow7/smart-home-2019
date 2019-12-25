@@ -7,4 +7,8 @@ public class CommandSender {
     public static void sendCommand(SensorCommand command) {
         System.out.println("Pretent we're sending command " + command);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> remotes/remote/hometask-3
