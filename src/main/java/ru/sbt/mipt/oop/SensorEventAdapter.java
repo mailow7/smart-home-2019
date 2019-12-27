@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
+import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,11 +53,11 @@ public class SensorEventAdapter {
         return stringEventType;
     }
 
-    public SensorEvent getEventTypeFromString(CCSensorEvent stringEventType){
-        convertVocab();
-        SensorEventType eventType = eventAccordance.get(stringEventType);
-        SensorEvent sensorEvent = new SensorEvent(eventType, stringEventType.getObjectId());
-        return sensorEvent;
-    }
+//    public SensorEvent getEventTypeFromString(CCSensorEvent stringEventType){
+//        convertVocab();
+//        SensorEventType eventType = eventAccordance.get(stringEventType);
+//        SensorEvent sensorEvent = new SensorEvent(eventType, stringEventType.getObjectId());
+//        return sensorEvent;
+//    }
 
 }

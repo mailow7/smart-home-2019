@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.HomeBuilder;
+package ru.sbt.mipt.oop.HomeBuilders;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -20,8 +20,8 @@ public class EventProcessorAPI implements EventHandler {
     public void handleEvent(CCSensorEvent CCevent) {
 
         SensorEventAdapter eventAdapter = new SensorEventAdapter();
-        SensorEvent sensorEvent = eventAdapter.getEventTypeFromString(CCevent);
-        eventProcessor.handle(sensorEvent);
+        //SensorEvent sensorEvent = eventAdapter.getEventTypeFromString(CCevent);
+        //eventProcessor.handle(sensorEvent);
 
     }
 }

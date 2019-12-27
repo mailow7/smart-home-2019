@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.HomeBuilder;
+package ru.sbt.mipt.oop.HomeBuilders;
 
 import ru.sbt.mipt.oop.SmartHome;
 

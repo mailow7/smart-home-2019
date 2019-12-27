@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.HomeBuilder;
+package ru.sbt.mipt.oop.HomeBuilders;
 
 import com.google.gson.Gson;
 import ru.sbt.mipt.oop.SmartHome;
@@ -17,8 +17,7 @@ public class GetSmarthomefromJSON implements HomeStateBuilder {
         String json = null;
         try {
             json = new String(Files.readAllBytes(Paths.get("output.js")));
-            SmartHome smartHome = gson.fromJson(json, SmartHome.class);
-            return smartHome;
+            return gson.fromJson(json, SmartHome.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

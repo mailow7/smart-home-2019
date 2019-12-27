@@ -23,8 +23,5 @@ public class SetAllLightOff implements Command {
             };
         });
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> remotes/remote/hometask-3

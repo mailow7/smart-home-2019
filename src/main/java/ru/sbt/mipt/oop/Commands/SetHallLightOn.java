@@ -18,10 +18,10 @@ public class SetHallLightOn implements Command {
     public void executeCommand() {
         smartHome.execute(obj -> {
             if(obj instanceof Room && ((Room) obj).getName().equals("hall")){
-                Collection<Light> lights = ((Room) obj).getLights();
-                for (Light light : lights){
-                    light.setOn(true);
-                }
+//                Collection<Light> lights = ((Room) obj).getLights();
+//                for (Light light : lights){
+//                    light.setOn(true);
+//                }
             }
         });
     }

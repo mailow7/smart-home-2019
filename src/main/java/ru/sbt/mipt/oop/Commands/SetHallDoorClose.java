@@ -18,10 +18,10 @@ public class SetHallDoorClose implements Command {
     public void executeCommand() {
         smartHome.execute(obj -> {
             if(obj instanceof Room && ((Room) obj).getName().equals("hall")){
-                Collection<Door> doors = ((Room) obj).getDoors();
-                for (Door door : doors){
-                    door.setOpen(false);
-                }
+//                Collection<Door> doors = ((Room) obj).getDoors();
+//                for (Door door : doors){
+//                    door.setOpen(false);
+//                }
             }
         });
     }

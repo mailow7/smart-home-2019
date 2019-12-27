@@ -1,7 +1,6 @@
 package ru.sbt.mipt.oop.Commands;
 
-import ru.sbt.mipt.oop.Alarm.Alarm;
-import ru.sbt.mipt.oop.Alarm.AlarmAlert;
+
 import ru.sbt.mipt.oop.Alarm.AlarmStatus;
 import ru.sbt.mipt.oop.SmartHome;
 
@@ -15,9 +14,9 @@ public class SetAlarmAlert implements Command {
 
     @Override
     public void executeCommand() {
-        Alarm alarm = smartHome.getAlarm();
-        AlarmStatus alarmStatus = new AlarmAlert(alarm);
-        alarm.setStatus(alarmStatus);
-        alarm.Alerting();
+//        Alarm alarm = smartHome.getAlarm();
+//        AlarmStatus alarmStatus = new AlarmAlert(alarm);
+//        alarm.setStatus(alarmStatus);
+//        alarm.Alerting();
     }
 }

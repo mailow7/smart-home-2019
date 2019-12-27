@@ -1,7 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.EventMaker.GetSmarthomeEvent;
-import ru.sbt.mipt.oop.EventMaker.GetSmarthomeEventRandom;
 import ru.sbt.mipt.oop.EventProcessors.EventProcessor;
 
 import java.util.List;
@@ -17,18 +15,18 @@ public class EventsManager implements HomeEventsManager {
 
     @Override
     public void start() {
-        GetSmarthomeEvent eventSmarthome = new GetSmarthomeEventRandom();
-        SensorEvent event = eventSmarthome.getEvent();
+        //GetSmarthomeEvent eventSmarthome = new GetSmarthomeEventRandom();
+        //SensorEvent event = eventSmarthome.getEvent();
 
-        while (event != null) {
-            System.out.println("Got event: " + event);
-
-            for (EventProcessor oneProcessor : eventProcessors) {
-                oneProcessor.handle(event);
-            }
-
-            event = eventSmarthome.getEvent();
-        }
+//        while (event != null) {
+//            System.out.println("Got event: " + event);
+//
+//            for (EventProcessor oneProcessor : eventProcessors) {
+//                oneProcessor.handle(event);
+//            }
+//
+//            event = eventSmarthome.getEvent();
+//        }
     }
 
     @Override
