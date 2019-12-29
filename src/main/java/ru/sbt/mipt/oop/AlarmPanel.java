@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop;
 
 import rc.RemoteControl;
 import rc.RemoteControlRegistry;
-import ru.sbt.mipt.oop.Commands.Command;
+import ru.sbt.mipt.oop.commands.Command;
 
 import java.util.HashMap;
 

@@ -1,13 +1,13 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.Alarm.AlarmDeactivated;
-import ru.sbt.mipt.oop.Alarm.AlarmStatus;
-import ru.sbt.mipt.oop.EventProcessors.EventProcessor;
-import ru.sbt.mipt.oop.Messanger.MessageSender;
-import ru.sbt.mipt.oop.Sensorevents.AlarmEvent;
-import ru.sbt.mipt.oop.Sensorevents.SensorEvent;
+import ru.sbt.mipt.oop.alarm.AlarmDeactivated;
+import ru.sbt.mipt.oop.alarm.AlarmStatus;
+import ru.sbt.mipt.oop.eventProcessors.EventProcessor;
+import ru.sbt.mipt.oop.messanger.MessageSender;
+import ru.sbt.mipt.oop.sensorevents.AlarmEvent;
+import ru.sbt.mipt.oop.sensorevents.SensorEvent;
 
-import static ru.sbt.mipt.oop.Sensorevents.AlarmEventType.ALARM_DEACTIVATE;
+import static ru.sbt.mipt.oop.sensorevents.AlarmEventType.ALARM_DEACTIVATE;
 
 public class DecorateAlarmEventProcessor implements EventProcessor {
 
@@ -19,16 +19,17 @@ public class DecorateAlarmEventProcessor implements EventProcessor {
         this.messageSender = messageSender;
     }
 
+
     @Override
-    public void handle(SmartHome smartHome, SensorEvent event) {
+    public void processEvent(SmartHome smartHome, SensorEvent event) {
         AlarmStatus status = smartHome.homeAlarm.getStatus();
         messageSender.send("Got event: " + event);
 
         if (event instanceof AlarmEvent) {
             if (((AlarmEvent) event).getType() == ALARM_DEACTIVATE || status instanceof AlarmDeactivated) {
-                processor.handle(smartHome, event);
+                processor.processEvent(smartHome, event);
             } else {
-                smartHome.homeAlarm.Alerting(messageSender);
+                smartHome.homeAlarm.alerting(messageSender);
             }
         }
     }

@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.EventProcessors.EventProcessor;
+import ru.sbt.mipt.oop.eventProcessors.EventProcessor;
 
 import java.util.List;
 
